@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
 
         image_to_load = pygame.image.load("img/single.png")
         self.image = pygame.Surface([self.width, self.height])
+        self.image.set_colorkey(BLACK) #makes black transparent
         self.image.blit(image_to_load, (0,0))
 
         self.rect = self.image.get_rect()
