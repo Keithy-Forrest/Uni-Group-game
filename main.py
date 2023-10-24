@@ -11,7 +11,7 @@ class Game: #we're starting with our first class
         #self.font = pygame.font.Font('Arial', 32)
         self.running = True
 
-        #self.character_spritesheet = Spritesheet('img/character.png')
+        self.character_spritesheet = Spritesheet('img/character.png')
         #self.terrain_spritesheet = Spritesheet('img/terrain.png')
 
         self.all_sprites = pygame.sprite.LayeredUpdates()
@@ -78,7 +78,7 @@ while g.running:
     g.main()
     g.game_over()
 
-self.character_spritesheet = Spritesheet('img/character.png')
+#self.character_spritesheet = Spritesheet('img/character.png')
 #self.terrain_spritesheet = Spritesheet('img/terrain.png')
 
 pygame.quit() #quit game

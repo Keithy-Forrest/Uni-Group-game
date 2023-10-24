@@ -1,5 +1,5 @@
-WIN_WIDTH = 640 
-WIN_HEIGHT = 480 
+WIN_WIDTH = 1280
+WIN_HEIGHT = 640
 TILESIZE = 32
 FPS = 60
 
@@ -13,19 +13,25 @@ BLACK = (0, 0, 0)
 BLUE = (0, 0, 225) #RGB settings so 0 red, 0 green and max blue(225)
 
 tilemap = [ #15 rows because it's 480 pixels and our tiles are 32 bits so 480/32 = 15
-    'BBBBBBBBBBBBBBBBBBBB', #the Bs represent blocks as in the walls
-    'B..................B', #the '.' represent nothing really
-    'B..................B', #the P represents the player
-    'B...BBB............B',
-    'B..................B',
-    'B.........P........B',
-    'B..................B',
-    'B..................B',
-    'B......BBB.........B', 
-    'B........B.........B',
-    'B........B.........B',
-    'B..................B',
-    'B..................B',
-    'B..................B',
-    'BBBBBBBBBBBBBBBBBBBB',
+    'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', #the Bs represent blocks as in the walls
+    'B.........................B....B.......B', #the '.' represent nothing really
+    'B.........................B....B.......B', #the P represents the player
+    'B.........................B....B.......B',
+    'B.........................B....B.......B',
+    'B.....................P................B',
+    'B......................................B',
+    'B.......BBBBBB.........................B',
+    'B...................................B..B',
+    'B...................................B..B',
+    'B...................................B..B',
+    'B...................................B..B',
+    'B................BBBBB..............B..B',
+    'B....................B.................B',
+    'B....................B.................B',
+    'B....................B.................B',
+    'B......................................B',
+   'B......................................B',
+    'B......................................B',
+    'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+    
 ]
