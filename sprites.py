@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height)
 
-        image_to_load = pygame.image.load("img/single.png")
+        image_to_load = pygame.image.load("Sprites/single.png")
         self.image = pygame.Surface([self.width, self.height])
         self.image.set_colorkey(BLACK) #makes black transparent
         self.image.blit(image_to_load, (0,0))
@@ -101,7 +101,7 @@ class Block(pygame.sprite.Sprite):
         self.height = TILESIZE
 
         self.image = pygame.Surface([self.width, self.height])
-        self.image = pygame.image.load("img/border.png")
+        self.image = pygame.image.load("Sprites/border.png")
         #self.image.fill(BLUE)
 
         self.rect = self.image.get_rect()
