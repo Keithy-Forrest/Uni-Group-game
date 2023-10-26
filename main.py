@@ -12,6 +12,7 @@ class Game: #we're starting with our first class
         self.running = True
 
         self.character_spritesheet = Spritesheet('Sprites/character.png')
+        self.enemy_spritesheet = Spritesheet('Sprites/enemy.png')
         #self.terrain_spritesheet = Spritesheet('Sprites/terrain.png')
 
         self.all_sprites = pygame.sprite.LayeredUpdates()
@@ -22,8 +23,11 @@ class Game: #we're starting with our first class
     def createTilemap(self):
         for i, row in enumerate(tilemap):
             for j, column in enumerate(row):
+                Ground(self, j, i)
                 if column == "B": #detects for a B in the tilemap and places a tile representing a block in its local
                     Block(self, j, i)
+                if column == "F":
+                    Enemy(self, j, i)
                 if column == "P": #detects for a P in the tilemap and places the player
                     Player(self, j, i)
 
@@ -49,6 +53,7 @@ class Game: #we're starting with our first class
     def update(self):
         #game loop updates
         self.all_sprites.update()
+
 
     def draw(self):
         #game loop draw
