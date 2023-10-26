@@ -26,7 +26,7 @@ class Game: #we're starting with our first class
                 Ground(self, j, i)
                 if column == "B": #detects for a B in the tilemap and places a tile representing a block in its local
                     Block(self, j, i)
-                if column == "F":
+                if column == "E":
                     Enemy(self, j, i)
                 if column == "P": #detects for a P in the tilemap and places the player
                     Player(self, j, i)
