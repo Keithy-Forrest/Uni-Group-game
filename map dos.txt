@@ -1,0 +1,22 @@
+40 by 20 
+
+b = border 
+.= air 
+e = enemy
+p = player spawn
+
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+b.p...........b..e.e..e................b
+b.............b..e.e..e................b
+bbbbbbbbbbb...bbbbbbbbbbbbbbb....e..e..b
+b...........................b..........b
+b..........e................b..........b
+b......................................b
+b......................................b
+b...........................b...e..e...b
+b...........................b..........b
+bbbbbbbbbbbbbbbbbbbbb.......bbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbb.............e.....b
+b......e............................e..b
+b..e.............................e.....b
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
