@@ -8,12 +8,14 @@ class Game: #we're starting with our first class
         pygame.init() #initialising pygame
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #setting up the screen as immutable variables so they can't be modified#
         self.clock = pygame.time.Clock() #sets up the fps (frames per second)
-        #self.font = pygame.font.Font('Arial', 32)
+        self.font = pygame.font.Font('pixeloid.ttf', 32)
         self.running = True
 
         self.character_spritesheet = Spritesheet('Sprites/character.png')
         self.enemy_spritesheet = Spritesheet('Sprites/enemy.png')
+        self.attack_spritesheet = Spritesheet('Sprites/attack.png')
         #self.terrain_spritesheet = Spritesheet('Sprites/terrain.png')
+        self.intro_background = pygame.image.load('Sprites/title.png')
 
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
@@ -29,7 +31,7 @@ class Game: #we're starting with our first class
                 if column == "E":
                     Enemy(self, j, i)
                 if column == "P": #detects for a P in the tilemap and places the player
-                    Player(self, j, i)
+                    self.player = Player(self, j, i)
 
     def new(self):
         self.createTilemap()
@@ -49,6 +51,18 @@ class Game: #we're starting with our first class
             if event.type == pygame.QUIT:
                 self.playing = False
                 self.running = False
+                
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                if self.player.facing == 'up':
+                    Attack(self, self.player.rect.x, self.player.rect.y - TILESIZE)
+                if self.player.facing == 'down':
+                    Attack(self, self.player.rect.x, self.player.rect.y + TILESIZE)
+                if self.player.facing == 'left':
+                    Attack(self, self.player.rect.x - TILESIZE, self.player.rect.y)
+                if self.player.facing == 'right':
+                    Attack(self, self.player.rect.x + TILESIZE, self.player.rect.y)
+                    
 
     def update(self):
         #game loop updates
@@ -70,21 +84,97 @@ class Game: #we're starting with our first class
             self.draw()
         self.running = False
 
-    def game_over(self):
-        pass
+    def game_over_screen(self):
+        game_over_font = pygame.font.Font('pixeloid.ttf', 64)
+        game_over_text = game_over_font.render("Game Over", True, RED)
+        game_over_rect = game_over_text.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 4))
 
-    def intro_screen(self):
-        pass
+        restart_button = Button(
+            WIN_WIDTH / 2 - 100,
+            WIN_HEIGHT / 2,
+            200,
+            50,
+            WHITE,
+            BLUE,
+            "Restart",
+            32
+        )
 
+        quit_button = Button(
+            WIN_WIDTH / 2 - 100,
+            WIN_HEIGHT / 2 + 60,
+            200,
+            50,
+            WHITE,
+            BLUE,
+            "Quit",
+            32
+        )
+
+        running = True
+
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if restart_button.is_pressed(pygame.mouse.get_pos(), pygame.mouse.get_pressed()):
+                        running = False  # Restart the game
+                    if quit_button.is_pressed(pygame.mouse.get_pos(), pygame.mouse.get_pressed()):
+                        pygame.quit()
+                        sys.exit()  # Quit the game
+
+            self.screen.fill(BLACK)
+            self.screen.blit(game_over_text, game_over_rect)
+            self.screen.blit(restart_button.image, restart_button.rect)
+            self.screen.blit(quit_button.image, quit_button.rect)
+            pygame.display.flip()
+            self.clock.tick(FPS)
+
+
+    def title_screen(self):
+        title_font = pygame.font.Font('pixeloid.ttf', 60)
+        title_text = title_font.render("Lost in The Labyrinth: A Father's Tale", True, WHITE)
+        title_rect = title_text.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 4))
+
+        start_button = Button(
+            WIN_WIDTH / 2 - 100,
+            WIN_HEIGHT / 2,
+            200,
+            50,
+            WHITE,
+            BLUE,
+            "Start Game",
+            32
+        )
+
+        running = True
+
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if start_button.is_pressed(pygame.mouse.get_pos(), pygame.mouse.get_pressed()):
+                        running = False
+
+            self.screen.fill(BLACK)
+            self.screen.blit(title_text, title_rect)
+            self.screen.blit(start_button.image, start_button.rect)
+            pygame.display.flip()
+            self.clock.tick(FPS)
+
+    
 g = Game()
-g.intro_screen()
+g.title_screen()  #displays the title screen
 g.new()
 while g.running:
     g.main()
-    g.game_over()
+    g.game_over_screen()  #display the game over screen if the player gets hit
 
-#self.character_spritesheet = Spritesheet('Sprites/character.png')
-#self.terrain_spritesheet = Spritesheet('Sprites/terrain.png')
+
 
 pygame.quit() #quit game
 sys.exit() #quit python program
