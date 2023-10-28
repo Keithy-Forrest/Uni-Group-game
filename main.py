@@ -1,11 +1,13 @@
-import pygame
+import pygame 
 from sprites import *
 from config import *
 import sys
+import pygame.mixer
 
 class Game: #we're starting with our first class
     def __init__(self):
         pygame.init() #initialising pygame
+        pygame.mixer.init()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #setting up the screen as immutable variables so they can't be modified#
         self.clock = pygame.time.Clock() #sets up the fps (frames per second)
         self.font = pygame.font.Font('pixeloid.ttf', 32)
@@ -22,8 +24,11 @@ class Game: #we're starting with our first class
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates() #attack animations and stuff
 
+        self.level_manager = LevelManager(self)
+        self.attack_sound = pygame.mixer.Sound('Sprites/royalty_free_slash.wav')
+
     def createTilemap(self):
-        for i, row in enumerate(tilemap):
+        for i, row in enumerate(tilemaps):
             for j, column in enumerate(row):
                 Ground(self, j, i)
                 if column == "B": #detects for a B in the tilemap and places a tile representing a block in its local
@@ -54,6 +59,7 @@ class Game: #we're starting with our first class
                 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
+                self.player.attack()
                 if self.player.facing == 'up':
                     Attack(self, self.player.rect.x, self.player.rect.y - TILESIZE)
                 if self.player.facing == 'down':
@@ -62,6 +68,7 @@ class Game: #we're starting with our first class
                     Attack(self, self.player.rect.x - TILESIZE, self.player.rect.y)
                 if self.player.facing == 'right':
                     Attack(self, self.player.rect.x + TILESIZE, self.player.rect.y)
+                
                     
 
     def update(self):
@@ -82,6 +89,7 @@ class Game: #we're starting with our first class
             self.events()
             self.update()
             self.draw()
+            self.level_manager.check_level_completion()
         self.running = False
 
     def game_over_screen(self):
@@ -96,7 +104,7 @@ class Game: #we're starting with our first class
             50,
             WHITE,
             BLUE,
-            "Restart",
+            "Restart?",
             32
         )
 
@@ -120,10 +128,10 @@ class Game: #we're starting with our first class
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if restart_button.is_pressed(pygame.mouse.get_pos(), pygame.mouse.get_pressed()):
-                        running = False  # Restart the game
+                        running = False  #restart the game
                     if quit_button.is_pressed(pygame.mouse.get_pos(), pygame.mouse.get_pressed()):
                         pygame.quit()
-                        sys.exit()  # Quit the game
+                        sys.exit()  #quit the game
 
             self.screen.fill(BLACK)
             self.screen.blit(game_over_text, game_over_rect)
