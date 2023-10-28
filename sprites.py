@@ -2,6 +2,7 @@ import pygame
 from config import *
 import math
 import random
+import pygame.mixer
 
 class Spritesheet:
     def __init__(self, file):
@@ -18,6 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.game = game
         self._layer = PLAYER_LAYER
         self.groups = self.game.all_sprites
+        self.is_attacking = False
         pygame.sprite.Sprite.__init__(self, self.groups)
 
         self.x = x * TILESIZE #32 pixels
@@ -57,9 +59,19 @@ class Player(pygame.sprite.Sprite):
         self.right_animations = [self.game.character_spritesheet.get_sprite(0, 32, self.width, self.height),
                             self.game.character_spritesheet.get_sprite(32, 64, self.width, self.height),
                             self.game.character_spritesheet.get_sprite(64, 96, self.width, self.height)]
+        
+        self.attack_animation = [self.game.character_spritesheet.get_sprite(96, 0, self.width, self.height),
+                            self.game.character_spritesheet.get_sprite(96, 32, self.width, self.height),
+                            self.game.character_spritesheet.get_sprite(96, 64, self.width, self.height),
+                            self.game.character_spritesheet.get_sprite(96, 64, self.width, self.height)]
+        
+
+    def attack(self):
+        pass
+
 
     def update(self):
-        self.movement()
+        self.movement()        
         self.animate()
         self.collide_enemy()
 
@@ -94,12 +106,14 @@ class Player(pygame.sprite.Sprite):
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
 
+        
+
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
             self.kill()
             self.game.playing = False
-            self.game.game_over_screen()  # Display the game over screen
+            self.game.game_over_screen()  #display the game over screen
 
             
     def collide_blocks(self, direction):
@@ -252,7 +266,7 @@ class Block(pygame.sprite.Sprite):
    def __init__(self, game, x, y):
         self.game = game
         self._layer = BLOCK_LAYER
-        self.groups = (self.game.all_sprites, self.game.blocks)  # Use a tuple to assign both groups
+        self.groups = (self.game.all_sprites, self.game.blocks)  #use a tuple to assign both groups
         pygame.sprite.Sprite.__init__(self, self.groups)
 
         self.x = x * TILESIZE
@@ -368,6 +382,8 @@ class Attack(pygame.sprite.Sprite):
 
     def collide(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, True)
+        if hits:
+            self.game.attack_sound.play()
 
     def animate(self):
         direction = self.game.player.facing
