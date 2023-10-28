@@ -19,4 +19,9 @@ bbbbbbbbbbbbbbbbbbbbb.......bbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbb.............e.....b
 b......e............................e..b
 b..e.............................e.....b
+b......................................b
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........b
+b....e...............e.......b.........b
+b..........e.................b...e.e...b
+b...e..................................b
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
