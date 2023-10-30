@@ -99,6 +99,10 @@ class Game: #we're starting with our first class
         game_over_font = pygame.font.Font('pixeloid.ttf', 64)
         game_over_text = game_over_font.render("Game Over", True, RED)
         game_over_rect = game_over_text.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 4))
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load('Sprites/game_over.mp3')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.5)
 
         restart_button = Button(
             WIN_WIDTH / 2 - 100,
