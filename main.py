@@ -4,6 +4,22 @@ from config import *
 import sys
 import pygame.mixer
 
+class HealthBar():
+    def __init__(self, x, y, w, h, max_hp):
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+        self.hp = max_hp
+        self.max_hp = max_hp
+
+    def draw(self, surface):
+        ratio = self.hp / self.max_hp
+        pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
+        pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))
+
+health_bar = HealthBar(250, 10, 300, 20, 100)
+
 class Game: #we're starting with our first class
     def __init__(self):
         pygame.init() #initialising pygame
@@ -13,6 +29,7 @@ class Game: #we're starting with our first class
         self.clock = pygame.time.Clock() #sets up the fps (frames per second)
         self.font = pygame.font.Font('pixeloid.ttf', 32)
         self.running = True
+        self.health_bar = health_bar
 
         self.character_spritesheet = Spritesheet('Sprites/character.png')
         self.enemy_spritesheet = Spritesheet('Sprites/enemy.png')
@@ -84,8 +101,11 @@ class Game: #we're starting with our first class
         #game loop draw
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
+        self.health_bar.draw(self.screen)
+        
         self.clock.tick(FPS)
         pygame.display.update()
+
 
     def main(self):
         #game loop
@@ -180,6 +200,8 @@ class Game: #we're starting with our first class
             self.screen.blit(start_button.image, start_button.rect)
             pygame.display.flip()
             self.clock.tick(FPS)
+            
+
 
     
 g = Game()

@@ -17,10 +17,11 @@ BLACK = (0, 0, 0)
 BLUE = (0, 0, 225) #RGB settings so 0 red, 0 green and max blue(225)
 WHITE = (255, 255, 255)
 
+
 tilemap1 = [ 
     'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', #the Bs represent blocks as in the walls
     'B.........................B....B.......B', #the '.' represent nothing really
-    'B.......E.................B....B.......B', #the P represents the player
+    'B.......E.................B..E.B.......B', #the P represents the player
     'B.........................B....B.......B', #the Es represent the enemy
     'B.........................B....B.......B',
     'B......................................B',
@@ -63,8 +64,4 @@ tilemap2 = [
 ]
 
 
-            
-
-
-
-    
+tilemaps = [tilemap1, tilemap2]
