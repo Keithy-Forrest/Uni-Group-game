@@ -8,6 +8,7 @@ class Game: #we're starting with our first class
     def __init__(self):
         pygame.init() #initialising pygame
         pygame.mixer.init()
+        pygame.mixer.music.load('Sprites/bgm.mp3')
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #setting up the screen as immutable variables so they can't be modified#
         self.clock = pygame.time.Clock() #sets up the fps (frames per second)
         self.font = pygame.font.Font('pixeloid.ttf', 32)
@@ -37,6 +38,8 @@ class Game: #we're starting with our first class
                     Enemy(self, j, i)
                 if column == "P": #detects for a P in the tilemap and places the player
                     self.player = Player(self, j, i)
+                pygame.mixer.music.play(-1) #plays music forever
+                pygame.mixer.music.set_volume(0.5) #sets volume to 50%
                     
 
     def new(self):
