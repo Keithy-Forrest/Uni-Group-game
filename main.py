@@ -24,11 +24,11 @@ class Game: #we're starting with our first class
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates() #attack animations and stuff
 
-        self.level_manager = LevelManager(self)
         self.attack_sound = pygame.mixer.Sound('Sprites/royalty_free_slash.wav')
+        self.current_tilemap = 0
 
     def createTilemap(self):
-        for i, row in enumerate(tilemaps):
+        for i, row in enumerate(tilemap1):
             for j, column in enumerate(row):
                 Ground(self, j, i)
                 if column == "B": #detects for a B in the tilemap and places a tile representing a block in its local
@@ -37,6 +37,7 @@ class Game: #we're starting with our first class
                     Enemy(self, j, i)
                 if column == "P": #detects for a P in the tilemap and places the player
                     self.player = Player(self, j, i)
+                    
 
     def new(self):
         self.createTilemap()
@@ -89,7 +90,6 @@ class Game: #we're starting with our first class
             self.events()
             self.update()
             self.draw()
-            self.level_manager.check_level_completion()
         self.running = False
 
     def game_over_screen(self):

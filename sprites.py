@@ -111,9 +111,21 @@ class Player(pygame.sprite.Sprite):
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
-            self.kill()
+            for hit in hits:
+                hit.kill()
+
+            if not any(self.game.enemies):
+                self.load_next_tilemap()
+
             self.game.playing = False
             self.game.game_over_screen()  #display the game over screen
+
+    def load_next_tilemap(self):
+        if self.game.current_tilemap < len(self.game.tilemaps) - 1:
+            self.game.current_tilemap += 1
+            self.game.new()
+        else:
+            self.game.playing = False
 
             
     def collide_blocks(self, direction):
@@ -128,8 +140,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x = hits[0].rect.right
                     for sprite in self.game.all_sprites:
                         sprite.rect.x -= PLAYER_SPEED
-    
-
+            
         if direction == 'y':
             hits = pygame.sprite.spritecollide(self, self.game.blocks, False)
             if hits:

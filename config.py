@@ -17,7 +17,7 @@ BLACK = (0, 0, 0)
 BLUE = (0, 0, 225) #RGB settings so 0 red, 0 green and max blue(225)
 WHITE = (255, 255, 255)
 
-tilemaps = [ 
+tilemap1 = [ 
     'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', #the Bs represent blocks as in the walls
     'B.........................B....B.......B', #the '.' represent nothing really
     'B.......E.................B....B.......B', #the P represents the player
@@ -38,51 +38,30 @@ tilemaps = [
     'B......................................B',
     'B......................................B',
     'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-    
 ]
-['bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-'b.p...........b..e.e..e................b',
-'b.............b..e.e..e................b',
-'bbbbbbbbbbb...bbbbbbbbbbbbbbb....e..e..b',
-'b...........................b..........b',
-'b..........e................b..........b',
-'b......................................b',
-'b......................................b',
-'b...........................b...e..e...b',
-'b...........................b..........b',
-'bbbbbbbbbbbbbbbbbbbbb.......bbbbbbbbbbbb',
-'bbbbbbbbbbbbbbbbbbbb.............e.....b',
-'b......e............................e..b',
-'b..e.............................e.....b',
-'b......................................b',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........b',
-'b....e...............e.......b.........b',
-'b..........e.................b...e.e...b',
-'b...e..................................b',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
- ]
+tilemap2 = [
+    'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+    'BBP...........B..E.E..E................B',
+    'B.............B..E.E..E................B',
+    'BBBBBBBBBBB...BBBBBBBBBBBBBBB....E..E..B',
+    'B...........................B..........B',
+    'B..........E................B..........B',
+    'B......................................B',
+    'B......................................B',
+    'B...........................B...E..E...B',
+    'B...........................B..........B',
+    'BBBBBBBBBBBBBBBBBBBBB.......BBBBBBBBBBBB',
+    'BBBBBBBBBBBBBBBBBBBB.............E.....B',
+    'B......E............................E..B',
+    'B..E.............................E.....B',
+    'B......................................B',
+    'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.........B',
+    'B....E...............E.......B.........B',
+    'B..........E.................B...E.E...B',
+    'B...E..................................B',
+    'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'  ,
+]
 
-
-class LevelManager:
-    def __init__(self, game):
-        self.game = game
-        self.current_level = 0
-
-    def load_level(self):
-        self.game.tilemap = tilemaps[self.current_level]
-        self.game.createTilemap()
-
-    def switch_level(self):
-        self.current_level += 1
-        if self.current_level < len(tilemaps):
-            self.load_level()
-        else:
-            self.game.playing = False
-            self.game.victory_screen()
-
-    def check_level_completion(self):
-        if len(self.game.enemies) == 0:
-            self.switch_level()
 
             
 
