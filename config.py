@@ -16,6 +16,7 @@ GREY = (169, 169, 169)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 225) #RGB settings so 0 red, 0 green and max blue(225)
 WHITE = (255, 255, 255)
+TEAL = (0, 128, 128)
 
 
 tilemap1 = [ 
@@ -42,7 +43,7 @@ tilemap1 = [
 ]
 tilemap2 = [
     'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-    'BBP...........B..E.E..E................B',
+    'BB............B..E.E..E................B',
     'B.............B..E.E..E................B',
     'BBBBBBBBBBB...BBBBBBBBBBBBBBB....E..E..B',
     'B...........................B..........B',
@@ -50,7 +51,7 @@ tilemap2 = [
     'B......................................B',
     'B......................................B',
     'B...........................B...E..E...B',
-    'B...........................B..........B',
+    'B..................P........B..........B',
     'BBBBBBBBBBBBBBBBBBBBB.......BBBBBBBBBBBB',
     'BBBBBBBBBBBBBBBBBBBB.............E.....B',
     'B......E............................E..B',
