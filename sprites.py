@@ -118,7 +118,8 @@ class Player(pygame.sprite.Sprite):
             if hits:
                 self.hp -= 10
                 pygame.mixer.init()
-                self.hit_sound = pygame.mixer.Sound(Sprites/hitHurt_1.wav)
+                self.hit_sound = pygame.mixer.Sound("Sprites/hitHurt_1.wav")
+                
                 if self.hp <= 0:
                     self.hp = 0
                     self.playing = False
