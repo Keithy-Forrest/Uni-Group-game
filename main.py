@@ -24,8 +24,9 @@ class Game: #we're starting with our first class
     def __init__(self):
         pygame.init() #initialising pygame
         pygame.mixer.init()
+        pygame.mixer.music.stop()
         pygame.mixer.music.load('Sprites/bgm.mp3')
-        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #setting up the screen as immutable variables so they can't be modified#
+        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT)) #setting up the screen as immutable variables so they can't be modified
         self.clock = pygame.time.Clock() #sets up the fps (frames per second)
         self.font = pygame.font.Font('pixeloid.ttf', 32)
         self.running = True
@@ -44,6 +45,7 @@ class Game: #we're starting with our first class
 
         self.attack_sound = pygame.mixer.Sound('Sprites/royalty_free_slash.wav')
         self.current_tilemap = 0
+        self.remaining_enemies = 0
 
     def createTilemap(self):
         for i, row in enumerate(tilemap1):
@@ -61,6 +63,7 @@ class Game: #we're starting with our first class
 
     def new(self):
         self.createTilemap()
+        self.remaining_enemies = len(self.enemies)
         #a new game starts
         self.playing = True #useful for checking when a player dies or not
 
@@ -95,6 +98,12 @@ class Game: #we're starting with our first class
     def update(self):
         #game loop updates
         self.all_sprites.update()
+        if self.remaining_enemies == 0:
+            self.load_next_tilemap()
+
+    def load_next_tilemap(self):
+        if self.current_tilemap < len(self.tilemaps) - 1:
+            self
 
 
     def draw(self):
@@ -120,7 +129,7 @@ class Game: #we're starting with our first class
         game_over_text = game_over_font.render("Game Over", True, RED)
         game_over_rect = game_over_text.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 4))
         pygame.mixer.music.stop()
-        pygame.mixer.music.load('Sprites/game_over.mp3')
+        pygame.mixer.music.load('Sprites/Afrobeat.mp3')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.5)
 
@@ -172,6 +181,11 @@ class Game: #we're starting with our first class
         title_font = pygame.font.Font('pixeloid.ttf', 60)
         title_text = title_font.render("Lost in The Labyrinth: A Father's Tale", True, WHITE)
         title_rect = title_text.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 4))
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load('Sprites/title.mp3')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.5)
+        
 
         start_button = Button(
             WIN_WIDTH / 2 - 100,

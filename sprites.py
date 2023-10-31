@@ -4,6 +4,7 @@ import math
 import random
 import pygame.mixer
 
+pygame.mixer.init()
 class Spritesheet:
     def __init__(self, file):
         self.sheet = pygame.image.load(file).convert()
@@ -43,6 +44,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+        self.hp = 100
+        self.invince = False  
+        self.invince_duration = 1000  
 
         self.down_animations = [self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height),
                            self.game.character_spritesheet.get_sprite(32, 0, self.width, self.height),
@@ -109,16 +113,22 @@ class Player(pygame.sprite.Sprite):
         
 
     def collide_enemy(self):
-        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
-        if hits:
-            for hit in hits:
-                hit.kill()
+        if not self.invince:
+            hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+            if hits:
+                self.hp -= 10
+                if self.hp <= 0:
+                    self.hp = 0
+                    self.playing = False
+                    self.game.game_over_screen()
+                self.game.health_bar.hp = self.hp
+                self.invince = True
+                self.invince_start = pygame.time.get_ticks()
 
-            if not any(self.game.enemies):
-                self.load_next_tilemap()
-
-            self.game.playing = False
-            self.game.game_over_screen()  #display the game over screen
+        if self.invince:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.invince_start >= self.invince_duration:
+                self.invince = False
 
     def load_next_tilemap(self):
         if self.game.current_tilemap < len(self.game.tilemaps) - 1:
