@@ -87,6 +87,7 @@ class Player(pygame.sprite.Sprite):
         self.x_change = 0
         self.y_change = 0
 
+
     def movement(self):
         keys = pygame.key.get_pressed() #list of every key pressed on keyboard
         if keys[pygame.K_LEFT]: #takes away from the x coordinate to move left
@@ -317,11 +318,14 @@ class Ground(pygame.sprite.Sprite):
         self.width = TILESIZE
         self.height = TILESIZE
 
-        self.image = pygame.image.load("Sprites/floor.png")
+        floorpics = ["Sprites/floor1.png", "Sprites/floor2.png", "Sprites/floor3.png"]
+        random_image = random.choice(floorpics)
+        self.image = pygame.image.load(random_image)
 
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
 
 class Button:
     def __init__(self, x, y, width, height, fg, bg, content, fontsize):
@@ -436,10 +440,22 @@ class Attack(pygame.sprite.Sprite):
             if self.animation_loop >= 5:
                 self.kill()
 
+class Daughter(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = ITEM_LAYER
+        self.groups = (self.game.all_sprites, self.game.blocks)  
+        pygame.sprite.Sprite.__init__(self, self.groups)
 
-            
-             
-             
+        self.x = x * TILESIZE
+        self.y = y * TILESIZE
+        self.width = TILESIZE
+        self.height = TILESIZE
 
-        
+        self.image = pygame.image.load("Sprites/daughter.png")
+        self.image.set_colorkey(BLACK) 
+
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
 
